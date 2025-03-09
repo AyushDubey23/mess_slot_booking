@@ -1,0 +1,400 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap');
+
+:root {
+    --background-light: linear-gradient(135deg, #f9f9f9, #e6e6e6);
+    --background-dark: linear-gradient(135deg, #1e1e1e, #2c2c2c);
+    --text-light: #333;
+    --text-dark: #e0e0e0;
+    --primary-color: #005f73;
+    --primary-color-hover: #0093d0;
+    --secondary-color: #94d2bd;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.15);
+    --font-primary: 'Roboto', sans-serif;
+    --font-secondary: 'Montserrat', sans-serif;
+    --transition-duration: 0.3s;
+}
+
+body {
+    background: var(--background-light);
+    color: var(--text-light);
+    font-family: var(--font-primary);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background var(--transition-duration), color var(--transition-duration);
+}
+
+body.dark-mode {
+    background: var(--background-dark);
+    color: var(--text-dark);
+}
+
+#auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+#login-form, #register-form {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    max-width: 400px;
+    transition: background var(--transition-duration);
+}
+
+body.dark-mode #login-form,
+body.dark-mode #register-form {
+    background: #3a3a3a;
+}
+
+#login-form h2, #register-form h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #444;
+    font-family: var(--font-secondary);
+}
+
+body.dark-mode #login-form h2,
+body.dark-mode #register-form h2 {
+    color: #ecf0f1;
+}
+
+#login-form input, #register-form input, #register-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color var(--transition-duration);
+}
+
+body.dark-mode #login-form input,
+body.dark-mode #register-form input,
+body.dark-mode #register-form select {
+    border-color: #555;
+    background: #4a4a4a;
+    color: #ecf0f1;
+}
+
+.password-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--primary-color);
+}
+
+#login-form button, #register-form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color var(--transition-duration);
+    font-family: var(--font-secondary);
+}
+
+#login-form button:hover, #register-form button:hover {
+    background-color: var(--primary-color-hover);
+}
+
+#login-form p, #register-form p {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+body.dark-mode #login-form p,
+body.dark-mode #register-form p {
+    color: #bdc3c7;
+}
+
+#login-form p span, #register-form p span {
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 30px;
+    animation: fadeIn 1s ease-in-out;
+    transition: background var(--transition-duration), border-color var(--transition-duration);
+}
+
+body.dark-mode header {
+    background: #3a3a3a;
+    border-color: #4a4a4a;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
+h1 {
+    font-size: 30px;
+    letter-spacing: 1px;
+    color: #444;
+    font-family: var(--font-secondary);
+}
+
+body.dark-mode h1 {
+    color: #ecf0f1;
+}
+
+.date-selector {
+    margin-top: 15px;
+}
+
+.date-selector label {
+    font-size: 18px;
+    color: #555;
+    font-family: var(--font-secondary);
+}
+
+body.dark-mode .date-selector label {
+    color: #bdc3c7;
+}
+
+.date-selector input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 10px;
+    transition: border-color var(--transition-duration);
+}
+
+body.dark-mode .date-selector input {
+    border-color: #555;
+    background: #4a4a4a;
+    color: #ecf0f1;
+}
+
+.hostels {
+    margin: 30px 0;
+}
+
+select {
+    padding: 15px;
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 18px;
+    border-radius: 8px;
+    box-shadow: var(--box-shadow);
+    transition: border var(--transition-duration), box-shadow var(--transition-duration), background var(--transition-duration), color var(--transition-duration);
+    font-family: var(--font-secondary);
+}
+
+body.dark-mode select {
+    background-color: #4a4a4a;
+    color: #ecf0f1;
+    border-color: #555;
+}
+
+select:hover {
+    border-color: #aaa;
+    box-shadow: var(--box-shadow-hover);
+}
+
+.meal {
+    background: #ffffff;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: var(--box-shadow);
+    transition: transform var(--transition-duration), box-shadow var(--transition-duration), background var(--transition-duration);
+    cursor: pointer;
+}
+
+body.dark-mode .meal {
+    background: #3a3a3a;
+}
+
+.meal:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-hover);
+}
+
+.meal h2 {
+    margin: 0;
+    font-size: 28px;
+    color: #555;
+    font-family: var(--font-secondary);
+}
+
+body.dark-mode .meal h2 {
+    color: #ecf0f1;
+}
+
+.slots {
+    margin-top: 20px;
+    display: none;
+    opacity: 0;
+    transition: opacity var(--transition-duration);
+}
+
+.slots.show {
+    display: block;
+    opacity: 1;
+}
+
+.slots p {
+    font-size: 20px;
+    color: #666;
+}
+
+body.dark-mode .slots p {
+    color: #bdc3c7;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    margin: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background var(--transition-duration), transform var(--transition-duration), box-shadow var(--transition-duration);
+    box-shadow: var(--box-shadow);
+    font-size: 18px;
+    font-family: var(--font-secondary);
+}
+
+button:hover {
+    background-color: var(--primary-color-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow-hover);
+}
+
+button.booked {
+    background-color: var(--secondary-color);
+    cursor: not-allowed;
+}
+
+button.booked:hover {
+    background-color: var(--secondary-color);
+    transform: none;
+    box-shadow: none;
+}
+
+.popup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #333;
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: var(--box-shadow);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transform: translateY(20px);
+    z-index: 1000;
+    font-family: var(--font-secondary);
+}
+
+.popup.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    header, .meal {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .meal h2 {
+        font-size: 24px;
+    }
+
+    .slots p {
+        font-size: 18px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    header, .meal {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .meal h2 {
+        font-size: 22px;
+    }
+
+    .slots p {
+        font-size: 16px;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
