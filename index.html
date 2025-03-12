@@ -15,8 +15,9 @@
                 <input type="password" id="login-password" placeholder="Password" required>
                 <span class="toggle-password" onclick="togglePassword('login-password')">🙈</span>
             </div>
-            <button onclick="login()">Login</button>
+            <button onclick="login()" aria-label="Login">Login</button>
             <p>Don't have an account? <span onclick="showRegisterForm()">Register</span></p>
+            <p>Mess Committee? <span onclick="showMessCommitteeForm()">Login Here</span></p>
         </div>
 
         <div id="register-form" style="display: none;">
@@ -31,8 +32,18 @@
                 <input type="password" id="register-password" placeholder="Password" required>
                 <span class="toggle-password" onclick="togglePassword('register-password')">🙈</span>
             </div>
-            <button onclick="register()">Register</button>
+            <button onclick="register()" aria-label="Register">Register</button>
             <p>Already have an account? <span onclick="showLoginForm()">Login</span></p>
+        </div>
+
+        <div id="mess-committee-form" style="display: none;">
+            <h2>Mess Committee Login</h2>
+            <input type="email" id="mess-committee-email" placeholder="Email" required>
+            <div class="password-container">
+                <input type="password" id="mess-committee-password" placeholder="Password" required>
+                <span class="toggle-password" onclick="togglePassword('mess-committee-password')">🙈</span>
+            </div>
+            <button onclick="messCommitteeLogin()" aria-label="Mess Committee Login">Login</button>
         </div>
     </div>
 
@@ -44,7 +55,7 @@
                 <label for="bookingDate">Select Date: </label>
                 <input type="date" id="bookingDate">
             </div>
-            <button id="darkModeToggle">Toggle Dark Mode</button>
+            <button id="darkModeToggle" aria-label="Toggle Dark Mode">🌙</button>
         </header>
 
         <main>
@@ -102,6 +113,24 @@
                     <button class="slot-button" data-meal="Dinner" data-time="9:00 - 9:30 PM">Book 9:00 - 9:30 PM</button>
                     <button class="slot-button" data-meal="Dinner" data-time="9:30 - 10:00 PM">Book 9:30 - 10:00 PM</button>
                 </div>
+            </section>
+
+            <section id="my-slots">
+                <h2>My Slots</h2>
+                <div id="mySlotsContainer"></div>
+            </section>
+        </main>
+    </div>
+
+    <div id="mess-committee-container" style="display: none;">
+        <header>
+            <img src="1.png" alt="MMMUT Logo" class="logo">
+            <h1>Mess Committee Dashboard</h1>
+        </header>
+        <main>
+            <section>
+                <h2>Booked Slots</h2>
+                <div id="bookedSlotsContainer"></div>
             </section>
         </main>
     </div>

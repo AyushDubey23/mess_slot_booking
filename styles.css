@@ -44,7 +44,7 @@ body.dark-mode {
     padding: 20px;
 }
 
-#login-form, #register-form {
+#login-form, #register-form, #mess-committee-form {
     background: #ffffff;
     padding: 30px;
     border-radius: 10px;
@@ -55,11 +55,12 @@ body.dark-mode {
 }
 
 body.dark-mode #login-form,
-body.dark-mode #register-form {
+body.dark-mode #register-form,
+body.dark-mode #mess-committee-form {
     background: #3a3a3a;
 }
 
-#login-form h2, #register-form h2 {
+#login-form h2, #register-form h2, #mess-committee-form h2 {
     margin-bottom: 20px;
     font-size: 24px;
     color: #444;
@@ -67,11 +68,12 @@ body.dark-mode #register-form {
 }
 
 body.dark-mode #login-form h2,
-body.dark-mode #register-form h2 {
+body.dark-mode #register-form h2,
+body.dark-mode #mess-committee-form h2 {
     color: #ecf0f1;
 }
 
-#login-form input, #register-form input, #register-form select {
+#login-form input, #register-form input, #mess-committee-form input, #register-form select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -83,6 +85,7 @@ body.dark-mode #register-form h2 {
 
 body.dark-mode #login-form input,
 body.dark-mode #register-form input,
+body.dark-mode #mess-committee-form input,
 body.dark-mode #register-form select {
     border-color: #555;
     background: #4a4a4a;
@@ -103,7 +106,7 @@ body.dark-mode #register-form select {
     color: var(--primary-color);
 }
 
-#login-form button, #register-form button {
+#login-form button, #register-form button, #mess-committee-form button {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
@@ -117,22 +120,23 @@ body.dark-mode #register-form select {
     font-family: var(--font-secondary);
 }
 
-#login-form button:hover, #register-form button:hover {
+#login-form button:hover, #register-form button:hover, #mess-committee-form button:hover {
     background-color: var(--primary-color-hover);
 }
 
-#login-form p, #register-form p {
+#login-form p, #register-form p, #mess-committee-form p {
     margin-top: 20px;
     font-size: 14px;
     color: #666;
 }
 
 body.dark-mode #login-form p,
-body.dark-mode #register-form p {
+body.dark-mode #register-form p,
+body.dark-mode #mess-committee-form p {
     color: #bdc3c7;
 }
 
-#login-form p span, #register-form p span {
+#login-form p span, #register-form p span, #mess-committee-form p span {
     color: var(--primary-color);
     cursor: pointer;
 }
@@ -397,4 +401,53 @@ button.booked:hover {
         padding: 10px;
         font-size: 14px;
     }
+}
+
+#darkModeToggle {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
+#darkModeToggle:hover {
+    color: var(--primary-color-hover);
+}
+
+#my-slots {
+    margin: 30px 0;
+}
+
+#mySlotsContainer {
+    margin-top: 20px;
+}
+
+#mySlotsContainer p {
+    font-size: 20px;
+    color: #666;
+}
+
+body.dark-mode #mySlotsContainer p {
+    color: #bdc3c7;
+}
+
+#mess-committee-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+#bookedSlotsContainer {
+    margin-top: 20px;
+}
+
+#bookedSlotsContainer p {
+    font-size: 20px;
+    color: #666;
+}
+
+body.dark-mode #bookedSlotsContainer p {
+    color: #bdc3c7;
 }

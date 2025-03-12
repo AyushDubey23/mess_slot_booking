@@ -3,7 +3,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const buttons = document.querySelectorAll(".slot-button");
     const hostelSelect = document.getElementById("hostelSelect");
     const darkModeToggle = document.getElementById("darkModeToggle");
+    const mySlotsContainer = document.getElementById("mySlotsContainer");
+    const bookedSlotsContainer = document.getElementById("bookedSlotsContainer");
     let currentUser = null;
+    let isMessCommittee = false;
 
     let bookedSlots = JSON.parse(localStorage.getItem("bookedSlots")) || {};
     let users = JSON.parse(localStorage.getItem("users")) || {};
@@ -13,12 +16,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function updateSlotAvailability() {
         const selectedDate = bookingDateInput.value;
+        const currentTime = new Date();
+        const selectedDateTime = new Date(selectedDate);
+
         buttons.forEach(button => {
             const time = button.getAttribute("data-time");
+            const [startHour, startMinute] = time.split(" - ")[0].split(":").map(Number);
+            const [endHour, endMinute] = time.split(" - ")[1].split(":").map(Number);
+            const slotStartTime = new Date(selectedDateTime.getFullYear(), selectedDateTime.getMonth(), selectedDateTime.getDate(), startHour, startMinute);
+            const slotEndTime = new Date(selectedDateTime.getFullYear(), selectedDateTime.getMonth(), selectedDateTime.getDate(), endHour, endMinute);
+
             const isBooked = bookedSlots[currentUser]?.[selectedDate]?.includes(time);
-            button.disabled = isBooked;
-            button.classList.toggle("booked", isBooked);
-            button.innerText = isBooked ? "Booked" : `Book ${time}`;
+            const isPast = currentTime > slotEndTime;
+
+            button.disabled = isBooked || isPast;
+            button.classList.toggle("booked", isBooked || isPast);
+            button.innerText = isBooked ? "Booked" : isPast ? "Past" : `Book ${time}`;
         });
     }
 
@@ -55,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 bookedSlots[currentUser][selectedDate].push(time);
                 localStorage.setItem("bookedSlots", JSON.stringify(bookedSlots));
                 showPopup(`Your slot for ${meal} at ${time} has been booked.`);
+                updateMySlots();
             }
         });
     });
@@ -102,6 +116,11 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("login-form").style.display = "block";
     };
 
+    window.showMessCommitteeForm = function() {
+        document.getElementById("login-form").style.display = "none";
+        document.getElementById("mess-committee-form").style.display = "block";
+    };
+
     window.login = function() {
         const email = document.getElementById("login-email").value;
         const password = document.getElementById("login-password").value;
@@ -112,6 +131,7 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("main-container").style.display = "block";
             updateSlotAvailability();
             updateHostelOptions();
+            updateMySlots();
         } else {
             alert("Invalid credentials. Please try again.");
         }
@@ -144,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     darkModeToggle.addEventListener("click", function() {
         document.body.classList.toggle("dark-mode");
-        darkModeToggle.textContent = document.body.classList.contains("dark-mode") ? "Toggle Light Mode" : "Toggle Dark Mode";
+        darkModeToggle.textContent = document.body.classList.contains("dark-mode") ? "🌞" : "🌙";
     });
 
     function updateHostelOptions() {
@@ -157,6 +177,60 @@ document.addEventListener("DOMContentLoaded", function() {
                 option.disabled = true;
             } else {
                 option.disabled = false;
+            }
+        }
+    }
+
+    function updateMySlots() {
+        mySlotsContainer.innerHTML = "";
+        if (bookedSlots[currentUser]) {
+            for (const date in bookedSlots[currentUser]) {
+                const slots = bookedSlots[currentUser][date];
+                slots.forEach(slot => {
+                    const p = document.createElement("p");
+                    p.innerText = `Booked ${slot} on ${date}`;
+                    const deleteButton = document.createElement("button");
+                    deleteButton.innerText = "Delete";
+                    deleteButton.addEventListener("click", function() {
+                        const index = bookedSlots[currentUser][date].indexOf(slot);
+                        if (index > -1) {
+                            bookedSlots[currentUser][date].splice(index, 1);
+                            localStorage.setItem("bookedSlots", JSON.stringify(bookedSlots));
+                            updateMySlots();
+                            updateSlotAvailability();
+                        }
+                    });
+                    p.appendChild(deleteButton);
+                    mySlotsContainer.appendChild(p);
+                });
+            }
+        }
+    }
+
+    window.messCommitteeLogin = function() {
+        const email = document.getElementById("mess-committee-email").value;
+        const password = document.getElementById("mess-committee-password").value;
+
+        if (email === "messcommittee@example.com" && password === "committee123") {
+            isMessCommittee = true;
+            document.getElementById("auth-container").style.display = "none";
+            document.getElementById("mess-committee-container").style.display = "block";
+            updateBookedSlots();
+        } else {
+            alert("Invalid credentials. Please try again.");
+        }
+    };
+
+    function updateBookedSlots() {
+        bookedSlotsContainer.innerHTML = "";
+        for (const user in bookedSlots) {
+            for (const date in bookedSlots[user]) {
+                const slots = bookedSlots[user][date];
+                slots.forEach(slot => {
+                    const p = document.createElement("p");
+                    p.innerText = `User: ${user}, Booked ${slot} on ${date}`;
+                    bookedSlotsContainer.appendChild(p);
+                });
             }
         }
     }
