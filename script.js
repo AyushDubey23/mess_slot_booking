@@ -5,11 +5,18 @@ document.addEventListener("DOMContentLoaded", function() {
     const darkModeToggle = document.getElementById("darkModeToggle");
     const mySlotsContainer = document.getElementById("mySlotsContainer");
     const bookedSlotsContainer = document.getElementById("bookedSlotsContainer");
+    const hostelManagementContainer = document.getElementById("hostelManagementContainer");
     let currentUser = null;
     let isMessCommittee = false;
 
     let bookedSlots = JSON.parse(localStorage.getItem("bookedSlots")) || {};
     let users = JSON.parse(localStorage.getItem("users")) || {};
+    let hostels = JSON.parse(localStorage.getItem("hostels")) || [
+        { name: "Vishwasaraya Bhawan", capacity: 500 },
+        { name: "Tagore Bhawan", capacity: 500 },
+        { name: "Tilak Bhawan", capacity: 160 },
+        { name: "New Girls Hostel", capacity: 200 }
+    ];
 
     bookingDateInput.valueAsDate = new Date();
     bookingDateInput.addEventListener("change", updateSlotAvailability);
@@ -66,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 this.innerText = "Booked";
                 this.classList.add("booked");
                 bookedSlots[currentUser][selectedDate].push(time);
-                localStorage.setItem("bookedSlots", JSON.stringify(bookedSlots));
+                saveBookedSlots();
                 showPopup(`Your slot for ${meal} at ${time} has been booked.`);
                 updateMySlots();
             }
@@ -102,8 +109,28 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     };
 
+    function saveBookedSlots() {
+        try {
+            localStorage.setItem("bookedSlots", JSON.stringify(bookedSlots));
+        } catch (error) {
+            console.error("Error saving booked slots:", error);
+        }
+    }
+
     function saveUsers() {
-        localStorage.setItem("users", JSON.stringify(users));
+        try {
+            localStorage.setItem("users", JSON.stringify(users));
+        } catch (error) {
+            console.error("Error saving users:", error);
+        }
+    }
+
+    function saveHostels() {
+        try {
+            localStorage.setItem("hostels", JSON.stringify(hostels));
+        } catch (error) {
+            console.error("Error saving hostels:", error);
+        }
     }
 
     window.showRegisterForm = function() {
@@ -141,6 +168,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const email = document.getElementById("register-email").value;
         const password = document.getElementById("register-password").value;
         const gender = document.getElementById("register-gender").value;
+        const profilePicture = document.getElementById("register-profile-picture").files[0];
 
         if (email && password && gender) {
             if (users[email]) {
@@ -148,10 +176,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            users[email] = { password, gender };
-            saveUsers();
-            alert("Registration successful! Please log in.");
-            showLoginForm();
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const profilePictureData = event.target.result;
+                users[email] = { password, gender, profilePicture: profilePictureData };
+                saveUsers();
+                alert("Registration successful! Please log in.");
+                showLoginForm();
+            };
+            reader.readAsDataURL(profilePicture);
         } else {
             alert("Please enter valid credentials.");
         }
@@ -194,8 +227,18 @@ document.addEventListener("DOMContentLoaded", function() {
                     deleteButton.addEventListener("click", function() {
                         const index = bookedSlots[currentUser][date].indexOf(slot);
                         if (index > -1) {
+                            const currentTime = new Date();
+                            const selectedDateTime = new Date(date);
+                            const [startHour, startMinute] = slot.split(" - ")[0].split(":").map(Number);
+                            const slotStartTime = new Date(selectedDateTime.getFullYear(), selectedDateTime.getMonth(), selectedDateTime.getDate(), startHour, startMinute);
+
+                            if (currentTime > slotStartTime) {
+                                alert("You cannot delete a slot that has already passed.");
+                                return;
+                            }
+
                             bookedSlots[currentUser][date].splice(index, 1);
-                            localStorage.setItem("bookedSlots", JSON.stringify(bookedSlots));
+                            saveBookedSlots();
                             updateMySlots();
                             updateSlotAvailability();
                         }
@@ -211,11 +254,12 @@ document.addEventListener("DOMContentLoaded", function() {
         const email = document.getElementById("mess-committee-email").value;
         const password = document.getElementById("mess-committee-password").value;
 
-        if (email === "messcommittee@example.com" && password === "committee123") {
+        if (email === "mmmut.ac.in" && password === "MMM@23") {
             isMessCommittee = true;
             document.getElementById("auth-container").style.display = "none";
             document.getElementById("mess-committee-container").style.display = "block";
             updateBookedSlots();
+            updateHostelManagement();
         } else {
             alert("Invalid credentials. Please try again.");
         }
@@ -234,6 +278,56 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     }
+
+    function updateHostelManagement() {
+        hostelManagementContainer.innerHTML = "";
+        hostels.forEach((hostel, index) => {
+            const p = document.createElement("p");
+            p.innerText = `Hostel: ${hostel.name}, Capacity: ${hostel.capacity}`;
+            const editButton = document.createElement("button");
+            editButton.innerText = "Edit";
+            editButton.addEventListener("click", function() {
+                const newName = prompt("Enter new hostel name:", hostel.name);
+                const newCapacity = prompt("Enter new hostel capacity:", hostel.capacity);
+                if (newName && newCapacity) {
+                    hostels[index] = { name: newName, capacity: parseInt(newCapacity) };
+                    saveHostels();
+                    updateHostelManagement();
+                }
+            });
+            const deleteButton = document.createElement("button");
+            deleteButton.innerText = "Delete";
+            deleteButton.addEventListener("click", function() {
+                hostels.splice(index, 1);
+                saveHostels();
+                updateHostelManagement();
+            });
+            p.appendChild(editButton);
+            p.appendChild(deleteButton);
+            hostelManagementContainer.appendChild(p);
+        });
+    }
+
+    window.addHostel = function() {
+        const name = prompt("Enter hostel name:");
+        const capacity = prompt("Enter hostel capacity:");
+        if (name && capacity) {
+            hostels.push({ name, capacity: parseInt(capacity) });
+            saveHostels();
+            updateHostelManagement();
+        }
+    };
+
+    window.showMySlotsPage = function() {
+        document.getElementById("main-container").style.display = "none";
+        document.getElementById("my-slots-page").style.display = "block";
+        updateMySlots();
+    };
+
+    window.showMainPage = function() {
+        document.getElementById("my-slots-page").style.display = "none";
+        document.getElementById("main-container").style.display = "block";
+    };
 
     updateSlotAvailability();
 });

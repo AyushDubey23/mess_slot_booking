@@ -8,43 +8,55 @@
 </head>
 <body>
     <div id="auth-container">
-        <div id="login-form">
-            <h2>Login</h2>
-            <input type="email" id="login-email" placeholder="Email" required>
+        <section id="login-form" aria-labelledby="login-heading">
+            <img src="1.png" alt="MMMUT Logo" class="logo">
+            <h2 id="login-heading">Login</h2>
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" placeholder="Email" required aria-required="true">
             <div class="password-container">
-                <input type="password" id="login-password" placeholder="Password" required>
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" placeholder="Password" required aria-required="true">
                 <span class="toggle-password" onclick="togglePassword('login-password')">🙈</span>
             </div>
             <button onclick="login()" aria-label="Login">Login</button>
             <p>Don't have an account? <span onclick="showRegisterForm()">Register</span></p>
             <p>Mess Committee? <span onclick="showMessCommitteeForm()">Login Here</span></p>
-        </div>
+        </section>
 
-        <div id="register-form" style="display: none;">
-            <h2>Register</h2>
-            <input type="email" id="register-email" placeholder="Email" required>
-            <select id="register-gender" required>
+        <section id="register-form" style="display: none;" aria-labelledby="register-heading">
+            <img src="1.png" alt="MMMUT Logo" class="logo">
+            <h2 id="register-heading">Register</h2>
+            <label for="register-email">Email</label>
+            <input type="email" id="register-email" placeholder="Email" required aria-required="true">
+            <label for="register-gender">Gender</label>
+            <select id="register-gender" required aria-required="true">
                 <option value="">Select Gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
             </select>
+            <label for="register-profile-picture">Profile Picture</label>
+            <input type="file" id="register-profile-picture" accept="image/*">
             <div class="password-container">
-                <input type="password" id="register-password" placeholder="Password" required>
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" placeholder="Password" required aria-required="true">
                 <span class="toggle-password" onclick="togglePassword('register-password')">🙈</span>
             </div>
             <button onclick="register()" aria-label="Register">Register</button>
             <p>Already have an account? <span onclick="showLoginForm()">Login</span></p>
-        </div>
+        </section>
 
-        <div id="mess-committee-form" style="display: none;">
-            <h2>Mess Committee Login</h2>
-            <input type="email" id="mess-committee-email" placeholder="Email" required>
+        <section id="mess-committee-form" style="display: none;" aria-labelledby="mess-committee-heading">
+            <img src="1.png" alt="MMMUT Logo" class="logo">
+            <h2 id="mess-committee-heading">Mess Committee Login</h2>
+            <label for="mess-committee-email">Email</label>
+            <input type="email" id="mess-committee-email" placeholder="Email" required aria-required="true">
             <div class="password-container">
-                <input type="password" id="mess-committee-password" placeholder="Password" required>
+                <label for="mess-committee-password">Password</label>
+                <input type="password" id="mess-committee-password" placeholder="Password" required aria-required="true">
                 <span class="toggle-password" onclick="togglePassword('mess-committee-password')">🙈</span>
             </div>
             <button onclick="messCommitteeLogin()" aria-label="Mess Committee Login">Login</button>
-        </div>
+        </section>
     </div>
 
     <div id="main-container" style="display: none;">
@@ -56,6 +68,7 @@
                 <input type="date" id="bookingDate">
             </div>
             <button id="darkModeToggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button id="mySlotsButton" onclick="showMySlotsPage()" aria-label="My Slots">My Slots</button>
         </header>
 
         <main>
@@ -114,9 +127,17 @@
                     <button class="slot-button" data-meal="Dinner" data-time="9:30 - 10:00 PM">Book 9:30 - 10:00 PM</button>
                 </div>
             </section>
+        </main>
+    </div>
 
+    <div id="my-slots-page" style="display: none;">
+        <header>
+            <img src="1.png" alt="MMMUT Logo" class="logo">
+            <h1>My Slots</h1>
+            <button id="backButton" onclick="showMainPage()" aria-label="Back">Back</button>
+        </header>
+        <main>
             <section id="my-slots">
-                <h2>My Slots</h2>
                 <div id="mySlotsContainer"></div>
             </section>
         </main>
@@ -131,6 +152,11 @@
             <section>
                 <h2>Booked Slots</h2>
                 <div id="bookedSlotsContainer"></div>
+            </section>
+            <section>
+                <h2>Manage Hostels</h2>
+                <button onclick="addHostel()">Add Hostel</button>
+                <div id="hostelManagementContainer"></div>
             </section>
         </main>
     </div>

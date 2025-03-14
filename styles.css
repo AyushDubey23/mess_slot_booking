@@ -73,7 +73,7 @@ body.dark-mode #mess-committee-form h2 {
     color: #ecf0f1;
 }
 
-#login-form input, #register-form input, #mess-committee-form input, #register-form select {
+#login-form input, #register-form input, #mess-committee-form input, #register-form select, #register-form input[type="file"] {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -86,7 +86,8 @@ body.dark-mode #mess-committee-form h2 {
 body.dark-mode #login-form input,
 body.dark-mode #register-form input,
 body.dark-mode #mess-committee-form input,
-body.dark-mode #register-form select {
+body.dark-mode #register-form select,
+body.dark-mode #register-form input[type="file"] {
     border-color: #555;
     background: #4a4a4a;
     color: #ecf0f1;
@@ -377,77 +378,4 @@ button.booked:hover {
         width: 100%;
         padding: 12px;
         font-size: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    header, .meal {
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 20px;
-    }
-
-    .meal h2 {
-        font-size: 22px;
-    }
-
-    .slots p {
-        font-size: 16px;
-    }
-
-    button {
-        padding: 10px;
-        font-size: 14px;
-    }
-}
-
-#darkModeToggle {
-    font-size: 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--primary-color);
-}
-
-#darkModeToggle:hover {
-    color: var(--primary-color-hover);
-}
-
-#my-slots {
-    margin: 30px 0;
-}
-
-#mySlotsContainer {
-    margin-top: 20px;
-}
-
-#mySlotsContainer p {
-    font-size: 20px;
-    color: #666;
-}
-
-body.dark-mode #mySlotsContainer p {
-    color: #bdc3c7;
-}
-
-#mess-committee-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-#bookedSlotsContainer {
-    margin-top: 20px;
-}
-
-#bookedSlotsContainer p {
-    font-size: 20px;
-    color: #666;
-}
-
-body.dark-mode #bookedSlotsContainer p {
-    color: #bdc3c7;
-}
+ 
