@@ -6,6 +6,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const mySlotsContainer = document.getElementById("mySlotsContainer");
     const bookedSlotsContainer = document.getElementById("bookedSlotsContainer");
     const hostelManagementContainer = document.getElementById("hostelManagementContainer");
+    const profilePhoto = document.getElementById("profile-photo");
+    const profilePhotoLarge = document.getElementById("profile-photo-large");
+    const reviewText = document.getElementById("review-text");
+    const captchaText = document.getElementById("captcha-text");
     let currentUser = null;
     let isMessCommittee = false;
 
@@ -151,11 +155,19 @@ document.addEventListener("DOMContentLoaded", function() {
     window.login = function() {
         const email = document.getElementById("login-email").value;
         const password = document.getElementById("login-password").value;
+        const captcha = document.getElementById("login-captcha").value;
+
+        if (captcha !== captchaText.innerText) {
+            alert("Invalid CAPTCHA. Please try again.");
+            return;
+        }
 
         if (users[email] && users[email].password === password) {
             currentUser = email;
             document.getElementById("auth-container").style.display = "none";
             document.getElementById("main-container").style.display = "block";
+            profilePhoto.src = users[email].profilePicture;
+            profilePhotoLarge.src = users[email].profilePicture;
             updateSlotAvailability();
             updateHostelOptions();
             updateMySlots();
@@ -167,10 +179,12 @@ document.addEventListener("DOMContentLoaded", function() {
     window.register = function() {
         const email = document.getElementById("register-email").value;
         const password = document.getElementById("register-password").value;
+        const name = document.getElementById("register-name").value;
         const gender = document.getElementById("register-gender").value;
+        const rollNumber = document.getElementById("register-roll-number").value;
         const profilePicture = document.getElementById("register-profile-picture").files[0];
 
-        if (email && password && gender) {
+        if (email && password && name && gender && rollNumber && profilePicture) {
             if (users[email]) {
                 alert("User already exists! Please log in.");
                 return;
@@ -179,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const reader = new FileReader();
             reader.onload = function(event) {
                 const profilePictureData = event.target.result;
-                users[email] = { password, gender, profilePicture: profilePictureData };
+                users[email] = { name, password, gender, rollNumber, profilePicture: profilePictureData };
                 saveUsers();
                 alert("Registration successful! Please log in.");
                 showLoginForm();
@@ -320,14 +334,80 @@ document.addEventListener("DOMContentLoaded", function() {
 
     window.showMySlotsPage = function() {
         document.getElementById("main-container").style.display = "none";
-        document.getElementById("my-slots-page").style.display = "block";
+        document.getElementById("my-profile-page").style.display = "block";
         updateMySlots();
+        updateUserDetails();
     };
 
     window.showMainPage = function() {
-        document.getElementById("my-slots-page").style.display = "none";
+        document.getElementById("my-profile-page").style.display = "none";
         document.getElementById("main-container").style.display = "block";
     };
 
+    function updateUserDetails() {
+        const userDetails = document.getElementById("user-details");
+        userDetails.innerHTML = `
+            <p>Name: ${users[currentUser].name}</p>
+            <p>Email: ${currentUser}</p>
+            <p>Roll Number: ${users[currentUser].rollNumber}</p>
+            <p>Gender: ${users[currentUser].gender}</p>
+        `;
+    }
+
+    function submitReview() {
+        const rating = document.querySelectorAll(".star.active").length;
+        const review = reviewText.value;
+        if (rating && review) {
+            const reviews = JSON.parse(localStorage.getItem("reviews")) || {};
+            reviews[currentUser] = { rating, review };
+            localStorage.setItem("reviews", JSON.stringify(reviews));
+            alert("Review submitted successfully!");
+            reviewText.value = "";
+            document.querySelectorAll(".star").forEach(star => star.classList.remove("active"));
+        } else {
+            alert("Please provide a rating and review.");
+        }
+    }
+
+    document.querySelectorAll(".star").forEach(star => {
+        star.addEventListener("click", function() {
+            const rating = this.getAttribute("data-rating");
+            document.querySelectorAll(".star").forEach((s, index) => {
+                if (index < rating) {
+                    s.classList.add("active");
+                } else {
+                    s.classList.remove("active");
+                }
+            });
+        });
+    });
+
+    profilePhoto.addEventListener("click", function() {
+        document.getElementById("main-container").style.display = "none";
+        document.getElementById("my-profile-page").style.display = "block";
+        updateMySlots();
+        updateUserDetails();
+    });
+
+    function generateCaptcha() {
+        const captcha = Math.random().toString(36).substring(2, 8);
+        captchaText.innerText = captcha;
+    }
+
+    generateCaptcha();
+
     updateSlotAvailability();
 });
+function navigateToNewPage() {
+    // Redirect to the loading page
+    window.location.href = "loading.html";
+
+    // Example: Simulate a data fetch or heavy operation
+    setTimeout(function() {
+        // After the operation is complete, redirect to the final destination
+        window.location.href = "main.html"; // Change to your target page
+    }, 3000); // Adjust the timeout as needed
+}
+
+// Example usage: Redirect to the loading page when a button is clicked
+document.getElementById("someButton").addEventListener("click", navigateToNewPage);

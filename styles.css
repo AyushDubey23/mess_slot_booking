@@ -93,18 +93,21 @@ body.dark-mode #register-form input[type="file"] {
     color: #ecf0f1;
 }
 
-.password-container {
+.password-container, .captcha-container {
     position: relative;
+    margin-bottom: 20px;
+}
+
+.password-input, .captcha-input {
+    display: flex;
+    align-items: center;
 }
 
 .toggle-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
     font-size: 18px;
     color: var(--primary-color);
+    cursor: pointer;
+    margin-left: 10px;
 }
 
 #login-form button, #register-form button, #mess-committee-form button {
@@ -356,6 +359,155 @@ button.booked:hover {
     transform: translateY(0);
 }
 
+.profile-photo-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.profile-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: var(--box-shadow);
+}
+
+.profile-photo-large {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 20px;
+}
+
+.star-rating {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.star {
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color var(--transition-duration);
+}
+
+.star:hover,
+.star.active {
+    color: #ffd700;
+}
+
+#review-text {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color var(--transition-duration);
+}
+
+body.dark-mode #review-text {
+    border-color: #555;
+    background: #4a4a4a;
+    color: #ecf0f1;
+}
+
+/* My Profile Page Styles */
+#my-profile-page header {
+    margin-bottom: 20px;
+}
+
+#profile-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#profile-photo-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#edit-profile-photo {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color var(--transition-duration);
+}
+
+#edit-profile-photo:hover {
+    background-color: var(--primary-color-hover);
+}
+
+#user-details-container, #preferences-container, #mySlotsContainer, #review-section, #about-section {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    background-color: #ffffff;
+    transition: background-color var(--transition-duration);
+}
+
+body.dark-mode #user-details-container,
+body.dark-mode #preferences-container,
+body.dark-mode #mySlotsContainer,
+body.dark-mode #review-section,
+body.dark-mode #about-section {
+    background-color: #3a3a3a;
+}
+
+#user-details-container h2, #preferences-container h2, #mySlotsContainer h2, #review-section h2, #about-section h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #444;
+    font-family: var(--font-secondary);
+}
+
+body.dark-mode #user-details-container h2,
+body.dark-mode #preferences-container h2,
+body.dark-mode #mySlotsContainer h2,
+body.dark-mode #review-section h2,
+body.dark-mode #about-section h2 {
+    color: #ecf0f1;
+}
+
+#user-details p, #preferred-hostel p {
+    font-size: 18px;
+    color: #666;
+    margin: 5px 0;
+}
+
+body.dark-mode #user-details p,
+body.dark-mode #preferred-hostel p {
+    color: #bdc3c7;
+}
+
+#edit-user-details, #edit-preferred-hostel {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color var(--transition-duration);
+    margin-top: 10px;
+}
+
+#edit-user-details:hover, #edit-preferred-hostel:hover {
+    background-color: var(--primary-color-hover);
+}
+
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     header, .meal {
@@ -378,4 +530,51 @@ button.booked:hover {
         width: 100%;
         padding: 12px;
         font-size: 16px;
- 
+    }
+
+    .profile-photo-container {
+        top: 10px;
+        right: 10px;
+    }
+
+    .profile-photo {
+        width: 30px;
+        height: 30px;
+    }
+
+    .profile-photo-large {
+        width: 80px;
+        height: 80px;
+    }
+}
+/* Loading Page Styles */
+.loading-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--background-light);
+    color: var(--text-light);
+    transition: background-color var(--transition-duration), color var(--transition-duration);
+}
+
+body.dark-mode .loading-page {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+}
+
+.loading-container {
+    text-align: center;
+}
+
+.loading-gif {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.loading-text {
+    margin-top: 20px;
+    font-size: 24px;
+    font-family: var(--font-secondary);
+}
