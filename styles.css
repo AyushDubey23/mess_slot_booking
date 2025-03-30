@@ -158,6 +158,12 @@ body.dark-mode #register-form input[type="file"] {
     margin-left: 10px;
 }
 
+.logged-in {
+    background-image: url('123.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
 #login-form button, #register-form button, #mess-committee-form button {
     width: 100%;
     padding: 10px;
@@ -625,3 +631,4 @@ body.dark-mode #preferred-hostel p {
         height: 80px;
     }
 }
+
