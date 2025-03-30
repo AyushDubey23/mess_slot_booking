@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("main-container").style.display = "block";
             profilePhoto.src = users[email].profilePicture;
             profilePhotoLarge.src = users[email].profilePicture;
-            document.body.style.backgroundImage = "url('123.jpg')";
+            document.body.style.backgroundImage = "url('3.jpg')";
             document.body.style.backgroundSize = "cover";   
             document.body.style.backgroundPosition = "center";
             updateSlotAvailability();
