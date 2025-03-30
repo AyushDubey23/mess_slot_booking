@@ -14,18 +14,18 @@
                 <span class="logo-text">MMMUT</span>
             </div>
             
-            <h2 id="login-heading">Student Login</h2>
+            <h2 id="login-heading" >Student Login</h2>
             <form id="loginForm">
                 <input type="email" id="login-email" placeholder="Email or Username" required aria-required="true">
                 <div class="password-container">
                     <div class="password-input">
                         <input type="password" id="login-password" placeholder="Password" required aria-required="true">
-                        <span class="toggle-password" onclick="togglePassword('login-password')">🙈</span>
+                        <span class="toggle-password" onclick="togglePassword('login-password', this)">🙈</span>
                     </div>
                 </div>
                 <div class="captcha-container">
                     <div class="captcha-input">
-                        <input type="text" id="login-captcha" placeholder="Enter CAPTCHA" required aria-required="true">
+                        <input type="text" id="login-captcha" placeholder="CAPTCHA" required aria-required="true">
                         <span id="captcha-text"></span>
                         <button type="button" onclick="generateCaptcha()">Refresh</button>
                     </div>
@@ -58,7 +58,7 @@
                     <label for="register-password">Password</label>
                     <div class="password-input">
                         <input type="password" id="register-password" placeholder="Password" required aria-required="true">
-                        <span class="toggle-password" onclick="togglePassword('register-password')">🙈</span>
+                        <span class="toggle-password" onclick="togglePassword('register-password', this)">🙈</span>
                     </div>
                 </div>
                 <button type="button" onclick="register()" aria-label="Register">Register</button>
@@ -76,7 +76,7 @@
                     <label for="mess-committee-password">Password</label>
                     <div class="password-input">
                         <input type="password" id="mess-committee-password" placeholder="Password" required aria-required="true">
-                        <span class="toggle-password" onclick="togglePassword('mess-committee-password')">🙈</span>
+                        <span class="toggle-password" onclick="togglePassword('mess-committee-password', this)">🙈</span>
                     </div>
                 </div>
                 <button type="button" onclick="messCommitteeLogin()" aria-label="Mess Committee Login">Login</button>

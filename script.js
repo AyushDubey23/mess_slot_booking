@@ -204,9 +204,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     };
 
-    window.togglePassword = function(inputId) {
+    window.togglePassword = function(inputId, toggleButtonId) {
         const passwordInput = document.getElementById(inputId);
-        passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+        const toggleButton = document.getElementById(toggleButtonId);
+    
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            toggleButton.innerText = "🙈";
+        } else {
+            passwordInput.type = "password";
+            toggleButton.innerText = "🙉";
+        }
+   
     };
 
     darkModeToggle.addEventListener("click", function() {
@@ -251,14 +260,12 @@ document.addEventListener("DOMContentLoaded", function() {
                                 return;
                             }
 
-                            bookedSlots[currentUser][date].splice(index, 1);
-                            if (bookedSlots[currentUser][date].length === 0) {
-                                delete bookedSlots[currentUser][date];
-                            }
+                            bookedSlots[currentUser][selectedDate].push(time);
                             saveBookedSlots();
-                            updateMySlots();
+                            updateBookedSlots(); 
+                            showPopup(`Your slot for ${meal} at ${time} has been booked.`);
+                            updateMySlots();    
                             updateSlotAvailability();
-                            showPopup(`Your slot for ${slot} on ${date} has been deleted.`);
                         }
                     });
                     p.appendChild(deleteButton);
@@ -286,18 +293,18 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateBookedSlots() {
         bookedSlotsContainer.innerHTML = "";
         const storedBookedSlots = JSON.parse(localStorage.getItem("bookedSlots")) || {};
-
-        for (const user in storedBookedSlots) {
-            for (const date in storedBookedSlots[user]) {
-                const slots = storedBookedSlots[user][date];
-                slots.forEach(slot => {
-                    const p = document.createElement("p");
-                    p.innerText = `User: ${user}, Booked ${slot} on ${date}`;
-                    bookedSlotsContainer.appendChild(p);
-                });
-            }
+    
+    for (const user in storedBookedSlots) {
+        for (const date in storedBookedSlots[user]) {
+            const slots = storedBookedSlots[user][date];
+            slots.forEach(slot => {
+                const p = document.createElement("p");
+                p.innerText = `User: ${user}, Booked ${slot} on ${date}`;
+                bookedSlotsContainer.appendChild(p);
+            });
         }
     }
+}
 
     function updateHostelManagement() {
         hostelManagementContainer.innerHTML = "";
@@ -404,7 +411,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     updateSlotAvailability();
 });
-
 function navigateToNewPage() {
     // Redirect to the loading page
     window.location.href = "loading.html";
