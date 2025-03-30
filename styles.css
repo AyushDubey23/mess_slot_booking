@@ -16,7 +16,8 @@
 }
 
 body {
-    background: var(--background-light);
+    background: url('2.jpg') no-repeat center center fixed;
+    background-size: cover;
     color: var(--text-light);
     font-family: var(--font-primary);
     text-align: center;
@@ -29,10 +30,10 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     transition: background var(--transition-duration), color var(--transition-duration);
-}
 
 body.dark-mode {
-    background: var(--background-dark);
+    background: var(--background-dark) url('by%202.png') no-repeat center center fixed;
+    background-size: cover;
     color: var(--text-dark);
 }
 
@@ -73,7 +74,8 @@ body.dark-mode #mess-committee-form h2 {
     color: #ecf0f1;
 }
 
-#login-form input, #register-form input, #mess-committee-form input, #register-form select, #register-form input[type="file"] {
+#login-form input, #register-form input, #mess-committee-form input, 
+#register-form select, #register-form input[type="file"] {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
