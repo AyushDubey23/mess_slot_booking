@@ -204,9 +204,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     };
 
-    window.togglePassword = function(inputId) {
+    window.togglePassword = function(inputId, toggleButtonId) {
         const passwordInput = document.getElementById(inputId);
-        passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+        const toggleButton = document.getElementById(toggleButtonId);
+    
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            toggleButton.innerText = "🙈";
+        } else {
+            passwordInput.type = "password";
+            toggleButton.innerText = "🙉";
+        }
+   
     };
 
     darkModeToggle.addEventListener("click", function() {

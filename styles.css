@@ -98,14 +98,48 @@ body.dark-mode #register-form input[type="file"] {
     color: #ecf0f1;
 }
 
-.password-container, .captcha-container {
+.password-container{
     position: relative;
     margin-bottom: 20px;
 }
 
+.captcha-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f3f3f3;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333;
+    width: fit-content;
+    margin-bottom: 10px; /* Adds space before the input box */
+}
+
+#captcha-text {
+    letter-spacing: 2px;
+}
+
+#refresh-captcha {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+#login-captcha {
+    width: 100%;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    
+}
 .password-input, .captcha-input {
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
 .toggle-password {
