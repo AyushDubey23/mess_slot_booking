@@ -9,13 +9,16 @@
 <body>
     <div id="auth-container">
         <section id="login-form" aria-labelledby="login-heading">
-            <img src="1.png" alt="MMMUT Logo" class="logo">
-            <h2 id="login-heading">Login</h2>
+            <div class="logo-container">
+                <img src="1.png" alt="MMMUT Logo" class="logo">
+                <span class="logo-text">MMMUT</span>
+            </div>
+            
+            <h2 id="login-heading">Student Login</h2>
             <form id="loginForm">
                 <label for="login-email">Email / Username</label>
                 <input type="email" id="login-email" placeholder="Email" required aria-required="true">
                 <div class="password-container">
-                    <label for="login-password">Password</label>
                     <div class="password-input">
                         <input type="password" id="login-password" placeholder="Password" required aria-required="true">
                         <span class="toggle-password" onclick="togglePassword('login-password')">🙈</span>
@@ -184,7 +187,7 @@
                 </div>
                 <div id="about-section">
                     <h2>About</h2>
-                    <p>Ayush Dubey - Google Development Club</p>
+                    <p>Ayush Dubey - Tushit Shaurya - Satyam Jaiswal</p>
                     <p>This website is designed to facilitate mess slot booking for students at MMMUT. It includes features like slot booking, profile management, and reviews.</p>
                 </div>
             </section>
