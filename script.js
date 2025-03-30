@@ -145,6 +145,7 @@ document.addEventListener("DOMContentLoaded", function() {
     window.showLoginForm = function() {
         document.getElementById("register-form").style.display = "none";
         document.getElementById("login-form").style.display = "block";
+        
     };
 
     window.showMessCommitteeForm = function() {
@@ -168,6 +169,9 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("main-container").style.display = "block";
             profilePhoto.src = users[email].profilePicture;
             profilePhotoLarge.src = users[email].profilePicture;
+            document.body.style.backgroundImage = "url('123.jpg')";
+            document.body.style.backgroundSize = "cover";   
+            document.body.style.backgroundPosition = "center";
             updateSlotAvailability();
             updateHostelOptions();
             updateMySlots();
