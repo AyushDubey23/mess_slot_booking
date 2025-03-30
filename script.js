@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("main-container").style.display = "block";
             profilePhoto.src = users[email].profilePicture;
             profilePhotoLarge.src = users[email].profilePicture;
-            document.body.style.backgroundImage = "url('123.jpg')";
+            document.body.style.backgroundImage = "url('3.jpg')";
             document.body.style.backgroundSize = "cover";   
             document.body.style.backgroundPosition = "center";
             updateSlotAvailability();
@@ -359,10 +359,13 @@ document.addEventListener("DOMContentLoaded", function() {
     window.showMainPage = function() {
         document.getElementById("my-profile-page").style.display = "none";
         document.getElementById("main-container").style.display = "block";
+        document.body.style.backgroundImage = "url('3.jpg')";
+        
     };
 
     function updateUserDetails() {
         const userDetails = document.getElementById("user-details");
+        document.body.style.backgroundImage = "url('white.jpg')";
         userDetails.innerHTML = `
             <p>Name: ${users[currentUser].name}</p>
             <p>Email: ${currentUser}</p>

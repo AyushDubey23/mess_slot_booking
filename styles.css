@@ -150,7 +150,7 @@ body.dark-mode #register-form input[type="file"] {
 }
 
 .logged-in {
-    background-image: url('123.jpg');
+    background-image: url('3.jpg');
     background-size: cover;
     background-position: center;
 }
@@ -516,6 +516,25 @@ body.dark-mode #review-text {
     background-color: var(--primary-color-hover);
 }
 
+#mess-committee-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    width: auto; /* Adjust width based on content */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Optional: for a subtle background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+}
+
+
+
 #user-details-container, #preferences-container, #mySlotsContainer, #review-section, #about-section {
     width: 100%;
     max-width: 600px;
@@ -647,4 +666,3 @@ body.dark-mode .loading-page {
     font-family: var(--font-secondary);
 }
 
-}
