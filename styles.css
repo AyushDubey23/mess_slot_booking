@@ -178,22 +178,36 @@ body.dark-mode header {
     }
 }
 
-.logo {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 10px;
-    border-radius: 30px;
-    overflow: hidden;
-    box-shadow: var(--box-shadow);
-    background: transparent;
-    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.2));
+.logo-container {
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
 }
 
-.logo-container {
-    font-size: 24px; /* Increased size */
-    font-weight: bold;
-    color: #333;
+.logo {
+    
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
 }
+
+.logo-text {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--text-light);
+    font-family: var(--font-secondary);
+    line-height: 60px;
+    
+}
+
+body.dark-mode .logo-text {
+    color: var(--text-dark);
+}
+
 
 
 h1 {
