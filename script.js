@@ -251,9 +251,11 @@ document.addEventListener("DOMContentLoaded", function() {
                                 return;
                             }
 
-                            bookedSlots[currentUser][date].splice(index, 1);
+                            bookedSlots[currentUser][selectedDate].push(time);
                             saveBookedSlots();
-                            updateMySlots();
+                            updateBookedSlots(); 
+                            showPopup(`Your slot for ${meal} at ${time} has been booked.`);
+                            updateMySlots();    
                             updateSlotAvailability();
                         }
                     });
@@ -281,17 +283,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function updateBookedSlots() {
         bookedSlotsContainer.innerHTML = "";
-        for (const user in bookedSlots) {
-            for (const date in bookedSlots[user]) {
-                const slots = bookedSlots[user][date];
-                slots.forEach(slot => {
-                    const p = document.createElement("p");
-                    p.innerText = `User: ${user}, Booked ${slot} on ${date}`;
-                    bookedSlotsContainer.appendChild(p);
-                });
-            }
+        const storedBookedSlots = JSON.parse(localStorage.getItem("bookedSlots")) || {};
+    
+    for (const user in storedBookedSlots) {
+        for (const date in storedBookedSlots[user]) {
+            const slots = storedBookedSlots[user][date];
+            slots.forEach(slot => {
+                const p = document.createElement("p");
+                p.innerText = `User: ${user}, Booked ${slot} on ${date}`;
+                bookedSlotsContainer.appendChild(p);
+            });
         }
     }
+}
 
     function updateHostelManagement() {
         hostelManagementContainer.innerHTML = "";
