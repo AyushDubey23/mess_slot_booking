@@ -13,12 +13,22 @@
     --font-primary: 'Roboto', sans-serif;
     --font-secondary: 'Montserrat', sans-serif;
     --transition-duration: 0.3s;
-    
+}
+
+:root {
+    --background-light: #f0f0f0; /* Adjust as needed */
+    --text-light: #333;
+    --font-primary: 'Arial', sans-serif;
+    --transition-duration: 0.3s;
 }
 
 body {
-    background: url('2.jpg') no-repeat center center fixed;
-    background-size: cover;
+    background-color: var(--background-light);
+    background-image: url('2.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover; /* Ensures the image covers the whole screen */
     color: var(--text-light);
     font-family: var(--font-primary);
     text-align: center;
@@ -31,9 +41,10 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     transition: background var(--transition-duration), color var(--transition-duration);
+}
+
 body.dark-mode {
-    background: var(--background-dark) url('by%202.png') no-repeat center center fixed;
-    background-size: cover;
+    background: var(--background-dark);
     color: var(--text-dark);
 }
 
@@ -43,13 +54,11 @@ body.dark-mode {
     align-items: center;
     height: 100vh;
     padding: 20px;
-
+    background-size: cover;
 }
 
-
-
 #login-form, #register-form, #mess-committee-form {
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.9);
     padding: 30px;
     border-radius: 10px;
     box-shadow: var(--box-shadow);
@@ -61,7 +70,7 @@ body.dark-mode {
 body.dark-mode #login-form,
 body.dark-mode #register-form,
 body.dark-mode #mess-committee-form {
-    background: #3a3a3a;
+    background: rgba(58, 58, 58, 0.9);
 }
 
 #login-form h2, #register-form h2, #mess-committee-form h2 {
@@ -77,11 +86,11 @@ body.dark-mode #mess-committee-form h2 {
     color: #ecf0f1;
 }
 
-#login-form input, #register-form input, #mess-committee-form input, 
+#login-form input, #register-form input, #mess-committee-form input,
 #register-form select, #register-form input[type="file"] {
-    width: 100%;
+    width: calc(100% - 20px);
     padding: 10px;
-    margin: 10px 0;
+    margin: 10px 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
@@ -98,7 +107,7 @@ body.dark-mode #register-form input[type="file"] {
     color: #ecf0f1;
 }
 
-.password-container{
+.password-container {
     position: relative;
     margin-bottom: 20px;
 }
@@ -114,7 +123,7 @@ body.dark-mode #register-form input[type="file"] {
     font-size: 1.2rem;
     color: #333;
     width: fit-content;
-    margin-bottom: 10px; /* Adds space before the input box */
+    margin-bottom: 10px;
 }
 
 #captcha-text {
@@ -129,13 +138,13 @@ body.dark-mode #register-form input[type="file"] {
 }
 
 #login-captcha {
-    width: 100%;
+    width: calc(100% - 20px);
     padding: 8px;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
-    
 }
+
 .password-input, .captcha-input {
     display: flex;
     align-items: center;
@@ -233,7 +242,6 @@ body.dark-mode header {
 }
 
 .logo {
-    
     width: 60px;
     height: 60px;
     border-radius: 30px;
@@ -245,14 +253,11 @@ body.dark-mode header {
     color: var(--text-light);
     font-family: var(--font-secondary);
     line-height: 60px;
-    
 }
 
 body.dark-mode .logo-text {
     color: var(--text-dark);
 }
-
-
 
 h1 {
     font-size: 30px;
@@ -348,10 +353,21 @@ body.dark-mode .meal {
     font-size: 28px;
     color: #555;
     font-family: var(--font-secondary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 body.dark-mode .meal h2 {
     color: #ecf0f1;
+}
+
+.meal h2 .arrow {
+    transition: transform var(--transition-duration);
+}
+
+.meal h2 .arrow.rotated {
+    transform: rotate(180deg);
 }
 
 .slots {
@@ -615,36 +631,4 @@ body.dark-mode #preferred-hostel p {
         height: 80px;
     }
 }
-/* Loading Page Styles */
-.loading-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: var(--background-light);
-    color: var(--text-light);
-    transition: background-color var(--transition-duration), color var(--transition-duration);
-}
 
-body.dark-mode .loading-page {
-    background-color: var(--background-dark);
-    color: var(--text-dark);
-}
-
-.loading-container {
-    text-align: center;
-}
-
-.loading-gif {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-}
-
-.loading-text {
-    margin-top: 20px;
-    font-size: 24px;
-    font-family: var(--font-secondary);
-}
-
-}
