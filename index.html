@@ -13,14 +13,13 @@
                 <img src="1.png" alt="MMMUT Logo" class="logo">
                 <span class="logo-text">MMMUT</span>
             </div>
-            
-            <h2 id="login-heading" >Student Login</h2>
+            <h2 id="login-heading">Student Login</h2>
             <form id="loginForm">
                 <input type="email" id="login-email" placeholder="Email or Username" required aria-required="true">
                 <div class="password-container">
                     <div class="password-input">
                         <input type="password" id="login-password" placeholder="Password" required aria-required="true">
-                        <span class="toggle-password" onclick="togglePassword('login-password', this)">🙈</span>
+                        <span class="toggle-password" onclick="togglePassword('login-password')">🙈</span>
                     </div>
                 </div>
                 <div class="captcha-container">
@@ -58,7 +57,7 @@
                     <label for="register-password">Password</label>
                     <div class="password-input">
                         <input type="password" id="register-password" placeholder="Password" required aria-required="true">
-                        <span class="toggle-password" onclick="togglePassword('register-password', this)">🙈</span>
+                        <span class="toggle-password" onclick="togglePassword('register-password')">🙈</span>
                     </div>
                 </div>
                 <button type="button" onclick="register()" aria-label="Register">Register</button>
@@ -76,7 +75,7 @@
                     <label for="mess-committee-password">Password</label>
                     <div class="password-input">
                         <input type="password" id="mess-committee-password" placeholder="Password" required aria-required="true">
-                        <span class="toggle-password" onclick="togglePassword('mess-committee-password', this)">🙈</span>
+                        <span class="toggle-password" onclick="togglePassword('mess-committee-password')">🙈</span>
                     </div>
                 </div>
                 <button type="button" onclick="messCommitteeLogin()" aria-label="Mess Committee Login">Login</button>
@@ -110,7 +109,7 @@
             </section>
 
             <section class="meal" id="breakfast">
-                <h2 onclick="toggleSection('breakfastSlots')">Breakfast (7:30 - 9:30 AM)</h2>
+                <h2 onclick="toggleSection('breakfastSlots')">Breakfast (7:30 - 9:30 AM) <span class="arrow">▼</span></h2>
                 <div class="slots" id="breakfastSlots">
                     <p>Select your slot:</p>
                     <button class="slot-button" data-meal="Breakfast" data-time="7:30 - 8:00 AM">Book 7:30 - 8:00 AM</button>
@@ -121,7 +120,7 @@
             </section>
 
             <section class="meal" id="lunch">
-                <h2 onclick="toggleSection('lunchSlots')">Lunch (12:30 - 2:30 PM)</h2>
+                <h2 onclick="toggleSection('lunchSlots')">Lunch (12:30 - 2:30 PM) <span class="arrow">▼</span></h2>
                 <div class="slots" id="lunchSlots">
                     <p>Select your slot:</p>
                     <button class="slot-button" data-meal="Lunch" data-time="12:30 - 1:00 PM">Book 12:30 - 1:00 PM</button>
@@ -132,7 +131,7 @@
             </section>
 
             <section class="meal" id="snack">
-                <h2 onclick="toggleSection('snackSlots')">Snack (5:00 - 6:30 PM)</h2>
+                <h2 onclick="toggleSection('snackSlots')">Snack (5:00 - 6:30 PM) <span class="arrow">▼</span></h2>
                 <div class="slots" id="snackSlots">
                     <p>Select your slot:</p>
                     <button class="slot-button" data-meal="Snack" data-time="5:00 - 5:15 PM">Book 5:00 - 5:15 PM</button>
@@ -145,7 +144,7 @@
             </section>
 
             <section class="meal" id="dinner">
-                <h2 onclick="toggleSection('dinnerSlots')">Dinner (8:00 - 10:00 PM)</h2>
+                <h2 onclick="toggleSection('dinnerSlots')">Dinner (8:00 - 10:00 PM) <span class="arrow">▼</span></h2>
                 <div class="slots" id="dinnerSlots">
                     <p>Select your slot:</p>
                     <button class="slot-button" data-meal="Dinner" data-time="8:00 - 8:30 PM">Book 8:00 - 8:30 PM</button>
@@ -206,6 +205,10 @@
                 <h2>Manage Hostels</h2>
                 <button onclick="addHostel()">Add Hostel</button>
                 <div id="hostelManagementContainer"></div>
+            </section>
+            <section>
+                <h2>Hostel-wise Bookings</h2>
+                <div id="hostelBookingsContainer"></div>
             </section>
         </main>
     </div>
