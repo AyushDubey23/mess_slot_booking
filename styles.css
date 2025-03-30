@@ -13,6 +13,7 @@
     --font-primary: 'Roboto', sans-serif;
     --font-secondary: 'Montserrat', sans-serif;
     --transition-duration: 0.3s;
+    
 }
 
 body {
@@ -44,6 +45,8 @@ body.dark-mode {
     height: 100vh;
     padding: 20px;
 }
+
+
 
 #login-form, #register-form, #mess-committee-form {
     background: #ffffff;
@@ -179,14 +182,37 @@ body.dark-mode header {
     }
 }
 
+.logo-container {
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
 .logo {
+    
     width: 60px;
     height: 60px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: var(--box-shadow);
+    border-radius: 30px;
 }
+
+.logo-text {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--text-light);
+    font-family: var(--font-secondary);
+    line-height: 60px;
+    
+}
+
+body.dark-mode .logo-text {
+    color: var(--text-dark);
+}
+
+
 
 h1 {
     font-size: 30px;

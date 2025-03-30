@@ -64,3 +64,14 @@ Create a new Pull Request.
 
 Contact
 For any questions or suggestions, please contact ayushdubey3740@gmail.com .
+
+Modifications Needed:
+#Bigger Logo
+#MMMUT text redesigned
+#Text Alignment
+#Image BG
+#DP edit
+#Better UI
+#Dark Mode in Login Pages
+#My Profile Secion Redisigned
+#Separate logins for each hostel 
