@@ -547,7 +547,6 @@ body.dark-mode #review-text {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-}
 
 
 
@@ -680,6 +679,4 @@ body.dark-mode .loading-page {
     margin-top: 20px;
     font-size: 24px;
     font-family: var(--font-secondary);
-}
-
 }
