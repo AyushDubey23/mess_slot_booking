@@ -17,7 +17,7 @@
 }
 
 body {
-    background: url('25.jpg') no-repeat center center fixed;
+    background: url('2.jpg') no-repeat center center fixed;
     background-size: cover;
     color: var(--text-light);
     font-family: var(--font-primary);
@@ -31,7 +31,6 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     transition: background var(--transition-duration), color var(--transition-duration);
-
 body.dark-mode {
     background: var(--background-dark) url('by%202.png') no-repeat center center fixed;
     background-size: cover;
@@ -44,6 +43,7 @@ body.dark-mode {
     align-items: center;
     height: 100vh;
     padding: 20px;
+
 }
 
 
