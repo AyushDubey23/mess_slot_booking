@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const mySlotsContainer = document.getElementById("mySlotsContainer");
     const bookedSlotsContainer = document.getElementById("bookedSlotsContainer");
     const hostelManagementContainer = document.getElementById("hostelManagementContainer");
-    const hostelBookingsContainer = document.getElementById("hostelBookingsContainer");
     const profilePhoto = document.getElementById("profile-photo");
     const profilePhotoLarge = document.getElementById("profile-photo-large");
     const reviewText = document.getElementById("review-text");
@@ -14,9 +13,9 @@ document.addEventListener("DOMContentLoaded", function() {
     let currentUser = null;
     let isMessCommittee = false;
 
-    let bookedSlots = loadFromLocalStorage("bookedSlots") || {};
-    let users = loadFromLocalStorage("users") || {};
-    let hostels = loadFromLocalStorage("hostels") || [
+    let bookedSlots = JSON.parse(localStorage.getItem("bookedSlots")) || {};
+    let users = JSON.parse(localStorage.getItem("users")) || {};
+    let hostels = JSON.parse(localStorage.getItem("hostels")) || [
         { name: "Vishwasaraya Bhawan", capacity: 500 },
         { name: "Tagore Bhawan", capacity: 500 },
         { name: "Tilak Bhawan", capacity: 160 },
@@ -25,23 +24,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     bookingDateInput.valueAsDate = new Date();
     bookingDateInput.addEventListener("change", updateSlotAvailability);
-
-    function loadFromLocalStorage(key) {
-        try {
-            return JSON.parse(localStorage.getItem(key));
-        } catch (error) {
-            console.error(`Error loading ${key} from localStorage:`, error);
-            return null;
-        }
-    }
-
-    function saveToLocalStorage(key, data) {
-        try {
-            localStorage.setItem(key, JSON.stringify(data));
-        } catch (error) {
-            console.error(`Error saving ${key} to localStorage:`, error);
-        }
-    }
 
     function updateSlotAvailability() {
         const selectedDate = bookingDateInput.value;
@@ -89,22 +71,21 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            const confirmBooking = confirm(`Do you want to book the ${meal} slot at ${time} in ${hostel} on ${selectedDate}?`);
+            let confirmBooking = confirm(`Do you want to book the ${meal} slot at ${time} in ${hostel} on ${selectedDate}?`);
             if (confirmBooking) {
                 this.disabled = true;
                 this.innerText = "Booked";
                 this.classList.add("booked");
                 bookedSlots[currentUser][selectedDate].push(time);
-                saveToLocalStorage("bookedSlots", bookedSlots);
+                saveBookedSlots();
                 showPopup(`Your slot for ${meal} at ${time} has been booked.`);
                 updateMySlots();
-                updateHostelBookings();
             }
         });
     });
 
     function showPopup(message) {
-        const popup = document.createElement("div");
+        let popup = document.createElement("div");
         popup.className = "popup";
         popup.innerText = message;
         document.body.appendChild(popup);
@@ -120,20 +101,41 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     window.toggleSection = function(sectionId) {
-        const section = document.getElementById(sectionId);
-        const arrow = section.querySelector(".arrow");
+        let section = document.getElementById(sectionId);
         if (section.style.display === "block") {
             section.style.display = "none";
             section.classList.remove("show");
-            arrow.classList.remove("rotated");
         } else {
             section.style.display = "block";
             setTimeout(() => {
                 section.classList.add("show");
-                arrow.classList.add("rotated");
             }, 100);
         }
     };
+
+    function saveBookedSlots() {
+        try {
+            localStorage.setItem("bookedSlots", JSON.stringify(bookedSlots));
+        } catch (error) {
+            console.error("Error saving booked slots:", error);
+        }
+    }
+
+    function saveUsers() {
+        try {
+            localStorage.setItem("users", JSON.stringify(users));
+        } catch (error) {
+            console.error("Error saving users:", error);
+        }
+    }
+
+    function saveHostels() {
+        try {
+            localStorage.setItem("hostels", JSON.stringify(hostels));
+        } catch (error) {
+            console.error("Error saving hostels:", error);
+        }
+    }
 
     window.showRegisterForm = function() {
         document.getElementById("login-form").style.display = "none";
@@ -196,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function() {
             reader.onload = function(event) {
                 const profilePictureData = event.target.result;
                 users[email] = { name, password, gender, rollNumber, profilePicture: profilePictureData };
-                saveToLocalStorage("users", users);
+                saveUsers();
                 alert("Registration successful! Please log in.");
                 showLoginForm();
             };
@@ -206,17 +208,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     };
 
-    window.togglePassword = function(inputId) {
+    window.togglePassword = function(inputId, toggleButtonId) {
         const passwordInput = document.getElementById(inputId);
-        const toggleButton = passwordInput.nextElementSibling;
-
+        const toggleButton = document.getElementById(toggleButtonId);
+    
         if (passwordInput.type === "password") {
             passwordInput.type = "text";
-            toggleButton.innerText = "🙉";
+            toggleButton.innerText = "🙈";
         } else {
             passwordInput.type = "password";
-            toggleButton.innerText = "🙈";
+            toggleButton.innerText = "🙉";
         }
+   
     };
 
     darkModeToggle.addEventListener("click", function() {
@@ -261,12 +264,12 @@ document.addEventListener("DOMContentLoaded", function() {
                                 return;
                             }
 
-                            bookedSlots[currentUser][date].splice(index, 1);
-                            saveToLocalStorage("bookedSlots", bookedSlots);
-                            showPopup(`Your slot for ${slot} on ${date} has been deleted.`);
-                            updateMySlots();
+                            bookedSlots[currentUser][selectedDate].push(time);
+                            saveBookedSlots();
+                            updateBookedSlots(); 
+                            showPopup(`Your slot for ${meal} at ${time} has been booked.`);
+                            updateMySlots();    
                             updateSlotAvailability();
-                            updateHostelBookings();
                         }
                     });
                     p.appendChild(deleteButton);
@@ -286,7 +289,6 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("mess-committee-container").style.display = "block";
             updateBookedSlots();
             updateHostelManagement();
-            updateHostelBookings();
         } else {
             alert("Invalid credentials. Please try again.");
         }
@@ -294,19 +296,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function updateBookedSlots() {
         bookedSlotsContainer.innerHTML = "";
-        const storedBookedSlots = loadFromLocalStorage("bookedSlots") || {};
-
-        for (const user in storedBookedSlots) {
-            for (const date in storedBookedSlots[user]) {
-                const slots = storedBookedSlots[user][date];
-                slots.forEach(slot => {
-                    const p = document.createElement("p");
-                    p.innerText = `User: ${user}, Booked ${slot} on ${date}`;
-                    bookedSlotsContainer.appendChild(p);
-                });
-            }
+        const storedBookedSlots = JSON.parse(localStorage.getItem("bookedSlots")) || {};
+    
+    for (const user in storedBookedSlots) {
+        for (const date in storedBookedSlots[user]) {
+            const slots = storedBookedSlots[user][date];
+            slots.forEach(slot => {
+                const p = document.createElement("p");
+                p.innerText = `User: ${user}, Booked ${slot} on ${date}`;
+                bookedSlotsContainer.appendChild(p);
+            });
         }
     }
+}
 
     function updateHostelManagement() {
         hostelManagementContainer.innerHTML = "";
@@ -320,7 +322,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const newCapacity = prompt("Enter new hostel capacity:", hostel.capacity);
                 if (newName && newCapacity) {
                     hostels[index] = { name: newName, capacity: parseInt(newCapacity) };
-                    saveToLocalStorage("hostels", hostels);
+                    saveHostels();
                     updateHostelManagement();
                 }
             });
@@ -328,7 +330,7 @@ document.addEventListener("DOMContentLoaded", function() {
             deleteButton.innerText = "Delete";
             deleteButton.addEventListener("click", function() {
                 hostels.splice(index, 1);
-                saveToLocalStorage("hostels", hostels);
+                saveHostels();
                 updateHostelManagement();
             });
             p.appendChild(editButton);
@@ -337,40 +339,12 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function updateHostelBookings() {
-        hostelBookingsContainer.innerHTML = "";
-        const storedBookedSlots = loadFromLocalStorage("bookedSlots") || {};
-        const hostelNames = hostels.map(hostel => hostel.name);
-
-        hostelNames.forEach(hostelName => {
-            const hostelSection = document.createElement("section");
-            hostelSection.innerHTML = `<h2>${hostelName}</h2>`;
-            const hostelSlots = document.createElement("div");
-
-            for (const user in storedBookedSlots) {
-                for (const date in storedBookedSlots[user]) {
-                    const slots = storedBookedSlots[user][date];
-                    slots.forEach(slot => {
-                        if (bookedSlots[user][date].includes(slot)) {
-                            const p = document.createElement("p");
-                            p.innerText = `User: ${user}, Booked ${slot} on ${date}`;
-                            hostelSlots.appendChild(p);
-                        }
-                    });
-                }
-            }
-
-            hostelSection.appendChild(hostelSlots);
-            hostelBookingsContainer.appendChild(hostelSection);
-        });
-    }
-
     window.addHostel = function() {
         const name = prompt("Enter hostel name:");
         const capacity = prompt("Enter hostel capacity:");
         if (name && capacity) {
             hostels.push({ name, capacity: parseInt(capacity) });
-            saveToLocalStorage("hostels", hostels);
+            saveHostels();
             updateHostelManagement();
         }
     };
@@ -385,10 +359,13 @@ document.addEventListener("DOMContentLoaded", function() {
     window.showMainPage = function() {
         document.getElementById("my-profile-page").style.display = "none";
         document.getElementById("main-container").style.display = "block";
+        document.body.style.backgroundImage = "url('3.jpg')";
+        
     };
 
     function updateUserDetails() {
         const userDetails = document.getElementById("user-details");
+        document.body.style.backgroundImage = "url('white.jpg')";
         userDetails.innerHTML = `
             <p>Name: ${users[currentUser].name}</p>
             <p>Email: ${currentUser}</p>
@@ -401,9 +378,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const rating = document.querySelectorAll(".star.active").length;
         const review = reviewText.value;
         if (rating && review) {
-            const reviews = loadFromLocalStorage("reviews") || {};
+            const reviews = JSON.parse(localStorage.getItem("reviews")) || {};
             reviews[currentUser] = { rating, review };
-            saveToLocalStorage("reviews", reviews);
+            localStorage.setItem("reviews", JSON.stringify(reviews));
             alert("Review submitted successfully!");
             reviewText.value = "";
             document.querySelectorAll(".star").forEach(star => star.classList.remove("active"));
@@ -441,12 +418,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
     updateSlotAvailability();
 });
-
 function navigateToNewPage() {
+    // Redirect to the loading page
     window.location.href = "loading.html";
+
+    // Example: Simulate a data fetch or heavy operation
     setTimeout(function() {
-        window.location.href = "main.html";
-    }, 3000);
+        // After the operation is complete, redirect to the final destination
+        window.location.href = "main.html"; // Change to your target page
+    }, 3000); // Adjust the timeout as needed
 }
 
+// Example usage: Redirect to the loading page when a button is clicked
 document.getElementById("someButton").addEventListener("click", navigateToNewPage);

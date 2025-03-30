@@ -70,10 +70,8 @@
             </div>
             <h2 id="mess-committee-heading">Mess Committee Login</h2>
             <form id="messCommitteeForm">
-                <label for="mess-committee-email">Email</label>
                 <input type="email" id="mess-committee-email" placeholder="Email" required aria-required="true">
                 <div class="password-container">
-                    <label for="mess-committee-password">Password</label>
                     <div class="password-input">
                         <input type="password" id="mess-committee-password" placeholder="Password" required aria-required="true">
                         <span class="toggle-password" onclick="togglePassword('mess-committee-password')">🙈</span>
@@ -86,7 +84,7 @@
 
     <div id="main-container" style="display: none;">
         <header>
-            <div class="logo-container">
+            <div class="logo-container-Dashboard">
                 <img src="1.png" alt="MMMUT Logo" class="logo">
                 <span class="logo-text">MMMUT</span>
             </div>
@@ -215,10 +213,6 @@
                 <h2>Manage Hostels</h2>
                 <button onclick="addHostel()">Add Hostel</button>
                 <div id="hostelManagementContainer"></div>
-            </section>
-            <section>
-                <h2>Hostel-wise Bookings</h2>
-                <div id="hostelBookingsContainer"></div>
             </section>
         </main>
     </div>
