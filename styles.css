@@ -15,8 +15,20 @@
     --transition-duration: 0.3s;
 }
 
+:root {
+    --background-light: #f0f0f0; /* Adjust as needed */
+    --text-light: #333;
+    --font-primary: 'Arial', sans-serif;
+    --transition-duration: 0.3s;
+}
+
 body {
-    background: var(--background-light);
+    background-color: var(--background-light);
+    background-image: url('2.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover; /* Ensures the image covers the whole screen */
     color: var(--text-light);
     font-family: var(--font-primary);
     text-align: center;
@@ -42,7 +54,6 @@ body.dark-mode {
     align-items: center;
     height: 100vh;
     padding: 20px;
-    background: url('2.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -336,10 +347,21 @@ body.dark-mode .meal {
     font-size: 28px;
     color: #555;
     font-family: var(--font-secondary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 body.dark-mode .meal h2 {
     color: #ecf0f1;
+}
+
+.meal h2 .arrow {
+    transition: transform var(--transition-duration);
+}
+
+.meal h2 .arrow.rotated {
+    transform: rotate(180deg);
 }
 
 .slots {
